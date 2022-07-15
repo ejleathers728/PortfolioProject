@@ -209,4 +209,4 @@ select location, date, total_cases, total_deaths,
 from CovidDeaths 
 where location like '%states%'
 AND continent is not NULL
-order by location and date</sql><current_tab id="0"/></tab_sql></sqlb_project>
+order by location and date
