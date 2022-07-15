@@ -1,3 +1,7 @@
+/*
+Covid 19 Data Exploration
+*/
+
 Select *
 From CovidDeaths
 where continent is not NULL
@@ -8,7 +12,8 @@ order by 3, 4;
 -- from CovidVacinations
 -- order by 3, 4;
 
--- Select Data that I will be using 
+-- Select Data that we are going to be starting with
+
 select location, date, total_cases, new_cases, total_deaths, population
 from CovidDeaths
 where continent is not NULL
@@ -16,6 +21,7 @@ order by location and date;
 
 -- looking at Total Cases vs Total Deaths
 -- shows the likelihood of dying if you contract covid in your country
+
 select location, date, total_cases, total_deaths, 
 (total_deaths/total_cases) * 100 as DeathPercentage
 from CovidDeaths 
@@ -23,8 +29,8 @@ where location like '%states%'
 AND continent is not NULL
 order by location and date
 
--- Looking at the total cases vs the population
--- shows what percentage of population got Covid
+-- Looking at the Total Cases vs the Population
+-- Shows what percentage of population got Covid
 
 select location, date, population, total_cases,
 (total_cases/population) * 100 as PercentPopulationInfected
@@ -34,6 +40,7 @@ and continent is not NULL
 order by location and date
 
 -- Looking at Countries with Highest Infection Rate Compared to Population
+
 select location, population, max(total_cases) as HighestInfectionCount,
 Max(total_cases/population) * 100 as PercentPopulationInfected
 from CovidDeaths 
@@ -67,7 +74,8 @@ where continent is not NULL
 Group by date 
 order by date 
 
--- Global Numbers  - total cases, total deahs and death percentage
+-- Global Numbers  - total cases, total deaths and death percentage
+
 Select SUM(new_cases) as TotalCases, sum(new_deaths) as TotalDeath,  
 sum(new_deaths)/sum(new_cases)*100 as DeathPercentage
 From CovidDeaths
@@ -75,6 +83,7 @@ where continent is not NULL
 order by 1, 2 
 
 -- Covid Vacination Table
+
 Select *
 From CovidVacinations
 
@@ -151,6 +160,7 @@ select *, (RollingPeopleVaccinated/Population)*100
 from PercentPopulationVaccinated
 
 -- Creating view to store data for later visualizations
+
 Create View PercentPopulationVaccinated as 
 Select dea.continent, dea.location, dea.date, dea.population, 
 	vac.new_vaccinations, 
